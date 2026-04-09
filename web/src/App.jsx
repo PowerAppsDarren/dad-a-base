@@ -164,7 +164,7 @@ function App() {
         body: JSON.stringify({
           setup: newJoke.setup,
           punchline: newJoke.punchline,
-          category_id: newJoke.category_id ? parseInt(newJoke.category_id) : null,
+          category_id: newJoke.category_id || null,
         }),
       });
       setNewJoke({ setup: '', punchline: '', category_id: '' });

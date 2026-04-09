@@ -4,7 +4,7 @@
 
 ## Sessions
 
-### 2026-04-09-02-repo-init-caddy-swap (Opus-4.6)
+### 2026-04-09-02-caddy-swap (Opus-4.6)
 - Full repo bootstrap via /_init_dev_flow, then swapped Nginx → Caddy across entire stack (reverse proxy + web container + all docs).
 - Status: ✅ Complete | Files: 1
 

@@ -5,6 +5,7 @@ Pydantic schemas for request/response validation.
 from pydantic import BaseModel, Field
 from typing import Optional
 from datetime import datetime
+from uuid import UUID
 
 
 class CategoryBase(BaseModel):
@@ -14,7 +15,7 @@ class CategoryBase(BaseModel):
 
 
 class CategoryResponse(CategoryBase):
-    id: int
+    id: UUID
     joke_count: int = 0
 
     class Config:
@@ -24,7 +25,7 @@ class CategoryResponse(CategoryBase):
 class JokeBase(BaseModel):
     setup: str = Field(..., min_length=1, description="The setup of the joke")
     punchline: str = Field(..., min_length=1, description="The punchline (the good part)")
-    category_id: Optional[int] = Field(None, description="Category ID")
+    category_id: Optional[UUID] = Field(None, description="Category ID")
 
 
 class JokeCreate(JokeBase):
@@ -32,10 +33,10 @@ class JokeCreate(JokeBase):
 
 
 class JokeResponse(BaseModel):
-    id: int
+    id: UUID
     setup: str
     punchline: str
-    category_id: Optional[int]
+    category_id: Optional[UUID]
     category_name: Optional[str] = None
     category_emoji: Optional[str] = None
     groan_factor: float
@@ -52,8 +53,8 @@ class RatingCreate(BaseModel):
 
 
 class RatingResponse(BaseModel):
-    id: int
-    joke_id: int
+    id: UUID
+    joke_id: UUID
     score: int
     created_at: datetime
 

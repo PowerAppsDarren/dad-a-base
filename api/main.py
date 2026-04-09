@@ -4,6 +4,7 @@ Dad-a-Base API - The RESTful Joke Engine
 
 A gloriously over-engineered API for serving dad jokes to the masses.
 """
+from uuid import UUID
 from fastapi import FastAPI, Depends, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
@@ -113,7 +114,7 @@ def health_check():
 def list_jokes(
     page: int = Query(1, ge=1, description="Page number"),
     per_page: int = Query(20, ge=1, le=100, description="Jokes per page"),
-    category_id: Optional[int] = Query(None, description="Filter by category"),
+    category_id: Optional[UUID] = Query(None, description="Filter by category"),
     sort_by: str = Query("newest", description="Sort: newest, oldest, groan_factor, rating"),
     db: Session = Depends(get_db),
 ):
@@ -148,7 +149,7 @@ def list_jokes(
 
 @app.get("/jokes/random", response_model=JokeResponse, tags=["Jokes"])
 def random_joke(
-    category_id: Optional[int] = Query(None, description="Get random joke from specific category"),
+    category_id: Optional[UUID] = Query(None, description="Get random joke from specific category"),
     db: Session = Depends(get_db),
 ):
     """
@@ -187,7 +188,7 @@ def search_jokes(
 
 
 @app.get("/jokes/{joke_id}", response_model=JokeResponse, tags=["Jokes"])
-def get_joke(joke_id: int, db: Session = Depends(get_db)):
+def get_joke(joke_id: UUID, db: Session = Depends(get_db)):
     """
     Get a specific joke by ID. Because every joke deserves individual attention.
     """
@@ -244,7 +245,7 @@ def list_categories(db: Session = Depends(get_db)):
 # ---- Rating Endpoints ----
 
 @app.post("/jokes/{joke_id}/rate", response_model=RatingResponse, status_code=201, tags=["Ratings"])
-def rate_joke(joke_id: int, rating_data: RatingCreate, db: Session = Depends(get_db)):
+def rate_joke(joke_id: UUID, rating_data: RatingCreate, db: Session = Depends(get_db)):
     """
     Rate a joke from 1 (polite smile) to 5 (involuntary groan).
     Remember: the worse the joke, the higher the rating!
