@@ -1,0 +1,108 @@
+version: "3.8"
+
+# =============================================
+# The Dad-a-Base Stack
+# "Why did the Docker container go to therapy?
+#  It had too many unresolved dependencies."
+# =============================================
+
+services:
+  # --- PostgreSQL: The Pun-derlying Data Store ---
+  postgres:
+    image: postgres:16.2-alpine
+    container_name: dadabase-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    networks:
+      - dadabase-internal
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+  # --- FastAPI: The Joke Engine ---
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: dadabase-api
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    networks:
+      - dadabase-internal
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+
+  # --- React Frontend: The Pun Palace ---
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    container_name: dadabase-web
+    restart: unless-stopped
+    networks:
+      - dadabase-internal
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+
+  # --- Nginx: The Reverse Pun-roxy ---
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: dadabase-nginx
+    restart: unless-stopped
+    ports:
+      - "${NGINX_PORT:-80}:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      api:
+        condition: service_healthy
+      web:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:80/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - dadabase-internal
+    deploy:
+      resources:
+        limits:
+          memory: 64M
+
+networks:
+  dadabase-internal:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    name: dadabase-postgres-data
