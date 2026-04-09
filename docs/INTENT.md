@@ -2,7 +2,7 @@
 
 ## What This IS
 
-A gloriously over-engineered dad joke delivery system that doubles as a Docker Compose multi-service orchestration showcase. It's a full-stack app (FastAPI + React + PostgreSQL + Nginx) deployed with a single `docker-compose up` command.
+A gloriously over-engineered dad joke delivery system that doubles as a Docker Compose multi-service orchestration showcase. It's a full-stack app (FastAPI + React + PostgreSQL + Caddy) deployed with a single `docker-compose up` command.
 
 ## What This IS NOT
 

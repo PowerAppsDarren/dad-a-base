@@ -6,6 +6,12 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Changed
+
+- Replaced Nginx with Caddy for reverse proxy (aligns with Bauss Stack)
+- Replaced Nginx with Caddy in web container Dockerfile for static file serving
+- Renamed NGINX_PORT to CADDY_PORT in .env and docker-compose.yml
+
 ### Added
 
 - Repository bootstrap via /_init_dev_flow
@@ -19,8 +25,8 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 ### Added
 
-- Initial project: FastAPI backend, React frontend, PostgreSQL, Nginx
+- Initial project: FastAPI backend, React frontend, PostgreSQL, Caddy
 - 122 seed dad jokes across 15 categories
 - REST API with CRUD, search, rating, and groan-o-meter endpoints
 - Docker Compose orchestration with health checks
-- Nginx reverse proxy configuration
+- Caddy reverse proxy configuration

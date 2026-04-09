@@ -2,7 +2,7 @@
 
 ## Overview
 
-Single-page React 18 web application — "The Pun Palace". Served via Nginx reverse proxy at port 80.
+Single-page React 18 web application — "The Pun Palace". Served via Caddy reverse proxy at port 80.
 
 ## Pages / Screens / Commands
 
@@ -44,7 +44,7 @@ Single-page React 18 web application — "The Pun Palace". Served via Nginx reve
 
 ## Responsive Behavior
 
-Web-only SPA served through Nginx. Basic responsive layout.
+Web-only SPA served through Caddy. Basic responsive layout.
 
 ## Accessibility
 

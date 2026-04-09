@@ -73,15 +73,15 @@ services:
         limits:
           memory: 128M
 
-  # --- Nginx: The Reverse Pun-roxy ---
-  nginx:
-    image: nginx:1.25-alpine
-    container_name: dadabase-nginx
+  # --- Caddy: The Reverse Pun-roxy ---
+  caddy:
+    image: caddy:2-alpine
+    container_name: dadabase-caddy
     restart: unless-stopped
     ports:
-      - "${NGINX_PORT:-80}:80"
+      - "${CADDY_PORT:-80}:80"
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
     depends_on:
       api:
         condition: service_healthy

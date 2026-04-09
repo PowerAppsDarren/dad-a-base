@@ -4,20 +4,20 @@
 
 ## Project Overview
 
-Full-stack dad joke app: FastAPI backend, React 18 frontend, PostgreSQL 16, Nginx reverse proxy. All services run via Docker Compose.
+Full-stack dad joke app: FastAPI backend, React 18 frontend, PostgreSQL 16, Caddy reverse proxy. All services run via Docker Compose.
 
 **NOTE:** This project uses Python + React, which deviates from the preferred Bauss Stack (SvelteKit + TypeScript). This is intentional — the project was built as a Docker Compose showcase.
 
 ## Architecture
 
 ```
-Browser → Nginx (port 80) → React (frontend) / FastAPI (backend) → PostgreSQL
+Browser → Caddy (port 80) → React (frontend) / FastAPI (backend) → PostgreSQL
 ```
 
 - `api/` — FastAPI backend (Python): `main.py`, `models.py`, `schemas.py`, `database.py`
 - `web/` — React 18 frontend: `src/`, `public/`
 - `db/` — PostgreSQL init: `init.sql` (122 seed jokes, 15 categories, 130 ratings)
-- `nginx/` — Reverse proxy config
+- `caddy/` — Reverse proxy config (Caddyfile)
 - `docker-compose.yml` — Full stack orchestration
 
 ## Commands
@@ -57,7 +57,7 @@ docker-compose down -v
 Environment variables in `.env`:
 - `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`
 - `DATABASE_URL` — connection string for FastAPI
-- `NGINX_PORT` — default 80
+- `CADDY_PORT` — default 80
 
 ## Conventions
 
@@ -65,3 +65,4 @@ Environment variables in `.env`:
 - PostgreSQL exposed on port 5433 (not 5432) to avoid conflicts
 - All services on `dadabase-internal` bridge network
 - Health checks on all services
+- Caddy handles reverse proxy (replaces Nginx) — matches Bauss Stack

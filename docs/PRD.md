@@ -43,7 +43,7 @@ Dad jokes deserve enterprise-grade infrastructure. Currently, dad jokes are scat
 - PostgreSQL with proper schema (categories, jokes, ratings)
 - FastAPI with Swagger docs
 - React SPA with category browsing, search, and rating
-- Nginx reverse proxy with rate limiting
+- Caddy reverse proxy
 - Health checks on all services
 
 ## Dependencies
@@ -52,7 +52,7 @@ Dad jokes deserve enterprise-grade infrastructure. Currently, dad jokes are scat
 - PostgreSQL 16
 - Python 3.x + FastAPI
 - React 18 + npm
-- Nginx 1.25
+- Caddy 2
 
 ## Success Metrics
 

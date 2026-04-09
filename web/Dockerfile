@@ -7,21 +7,16 @@ RUN npm install --legacy-peer-deps
 COPY . .
 RUN npm run build
 
-# Stage 2: Serve with nginx
-FROM nginx:1.25-alpine
+# Stage 2: Serve with Caddy
+FROM caddy:2-alpine
 
-COPY --from=build /app/build /usr/share/nginx/html
+COPY --from=build /app/build /srv
 
-# Custom nginx config to handle SPA routing
-RUN echo 'server { \
-    listen 80; \
-    root /usr/share/nginx/html; \
-    index index.html; \
-    location / { \
-        try_files $uri $uri/ /index.html; \
-    } \
-}' > /etc/nginx/conf.d/default.conf
+# Caddyfile for SPA routing
+RUN echo ':80 { \
+    root * /srv \
+    try_files {path} /index.html \
+    file_server \
+}' > /etc/caddy/Caddyfile
 
 EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]

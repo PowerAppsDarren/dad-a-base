@@ -18,7 +18,7 @@
       |
       v
   +------------------+
-  |   Nginx          |  Port 80
+  |   Caddy          |  Port 80
   |   Reverse        |  "The Bouncer"
   |   Pun-roxy       |
   +--------+---------+
@@ -51,7 +51,7 @@
 | Database  | PostgreSQL 16 | `dadabase-postgres` | Stores 122 certified dad jokes   |
 | Backend   | FastAPI       | `dadabase-api`      | REST API with punny docs         |
 | Frontend  | React 18      | `dadabase-web`      | The Pun Palace UI                |
-| Proxy     | Nginx 1.25    | `dadabase-nginx`    | Routes traffic, rate limits      |
+| Proxy     | Caddy 2       | `dadabase-caddy`    | Routes traffic                   |
 
 ## Quick Start
 
@@ -116,7 +116,7 @@ Edit `.env` to customize:
 POSTGRES_USER=dad_admin
 POSTGRES_PASSWORD=imdad_changeme123   # Please change this!
 POSTGRES_DB=dadabase
-NGINX_PORT=80                         # Change if port 80 is taken
+CADDY_PORT=80                         # Change if port 80 is taken
 ```
 
 ## Development
@@ -147,7 +147,7 @@ comedy!"**
 Also because this is a masterclass in:
 - Docker Compose multi-service orchestration
 - Service health checks and dependency ordering
-- Reverse proxy configuration
+- Caddy reverse proxy with automatic HTTPS
 - Full-stack Python + React development
 - PostgreSQL with proper schema design
 - REST API design with FastAPI

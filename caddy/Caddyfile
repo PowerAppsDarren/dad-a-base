@@ -1,0 +1,23 @@
+# =============================================
+# Dad-a-Base Caddy Configuration
+# "Why did Caddy get promoted?
+#  Because it handled everything automatically!"
+# =============================================
+
+:80 {
+	# Health check
+	respond /health 200 {
+		body `{"status":"healthy","service":"caddy","message":"The reverse pun-roxy is running!"}`
+		close
+	}
+
+	# API routes — proxy to FastAPI, strip /api prefix
+	handle_path /api/* {
+		reverse_proxy api:8000
+	}
+
+	# Frontend — proxy to React
+	handle {
+		reverse_proxy web:80
+	}
+}
