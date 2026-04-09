@@ -4,6 +4,10 @@
 
 ## Sessions
 
+### 2026-04-09-02-repo-init-caddy-swap (Opus-4.6)
+- Full repo bootstrap via /_init_dev_flow, then swapped Nginx → Caddy across entire stack (reverse proxy + web container + all docs).
+- Status: ✅ Complete | Files: 1
+
 ### 2026-04-09-01-initial-launch (Opus-4.6)
 - Launched Dad-a-Base Docker stack, fixed port 80 conflict (Caddy), switched to 8888. All containers healthy.
 - Status: ✅ Complete | Files: 2
