@@ -1,8 +1,12 @@
 # AI-Chats Index
 
-**Last Updated:** 2026-04-09
+**Last Updated:** 2026-04-12
 
 ## Sessions
+
+### 2026-04-12-01-uuid-migration-jokes (Opus-4.6)
+- Added 124 new dad jokes via parallel research agents (246 total). Migrated all tables from SERIAL to UUID primary keys across entire stack (SQL, SQLAlchemy, Pydantic, FastAPI, React). Updated global tech-stack.md with UUID-as-default policy.
+- Status: ✅ Complete | Files: 1
 
 ### 2026-04-09-02-caddy-swap (Opus-4.6)
 - Full repo bootstrap via /_init_dev_flow, then swapped Nginx → Caddy across entire stack (reverse proxy + web container + all docs).

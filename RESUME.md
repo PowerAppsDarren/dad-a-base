@@ -1,5 +1,27 @@
 # Dad-a-Base - Session Resume
 
+## 2026-04-12 — UUID Migration + 124 New Jokes
+
+**What happened:**
+- Added 124 new dad jokes across all 15 categories (246 total) via parallel research agents
+- Migrated ALL tables from SERIAL integer PKs to UUID primary keys
+- Updated full stack: init.sql, models.py, schemas.py, main.py, App.jsx
+- Category references in seed data use name subqueries instead of hardcoded IDs
+- Updated global `~/.claude/tech-stack.md` with UUID-as-default-PK policy
+
+**Files changed:**
+- `db/init.sql` — Full rewrite: UUID PKs, pgcrypto, 246 jokes
+- `api/models.py` — UUID columns via `sqlalchemy.dialects.postgresql.UUID`
+- `api/schemas.py` — Pydantic `UUID` types
+- `api/main.py` — Route/query params now `UUID`
+- `web/src/App.jsx` — Removed `parseInt()` for category_id
+
+**Pending:**
+- Test with `docker-compose down -v && docker-compose up --build`
+- Verify frontend handles UUID strings in all views
+
+---
+
 ## 2026-04-09 14:15 — Repo Init + Nginx → Caddy Swap
 
 **What happened:**
