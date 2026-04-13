@@ -1,5 +1,35 @@
 # Dad-a-Base - Session Resume
 
+## 2026-04-13 — GSD Tech Stack Migration (In Progress)
+
+**What happened:**
+- Analyzed full tech stack against Bauss Stack — only PostgreSQL is compliant
+- Decided on full rewrite (option A) to align with SvelteKit/Drizzle/Tailwind/Bun/TypeScript
+- Started GSD `/gsd:new-project` workflow
+- Brownfield detected, skipped codebase mapping (already analyzed)
+- Entered questioning phase, gathered core requirements:
+  - Community-driven dad joke platform
+  - Browse, search, submit, vote, categories, favorites
+  - Crowd-validated moderation: pending -> 2-3 validations -> public
+- GSD init ran successfully, no planning files written yet
+
+**GSD State:** Questioning phase (Step 3), mid-conversation
+
+**Questions still open:**
+- User accounts: browse freely vs sign up to interact?
+- Anonymous vs account-tied voting?
+- Category management: predefined or user-created?
+- Search: full-text, tags, or both?
+- Random joke feature?
+- Public API for third parties?
+
+**Next steps:**
+1. Resume `/gsd:new-project` — finish questioning
+2. Write PROJECT.md, config, research, requirements, roadmap
+3. Start `/gsd:plan-phase 1`
+
+---
+
 ## 2026-04-12 — UUID Migration + 124 New Jokes
 
 **What happened:**
